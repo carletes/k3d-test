@@ -1,0 +1,29 @@
+---
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: kubernetes-webdev
+agents: 4
+image: docker.io/rancher/k3s:v1.21.7-k3s1
+options:
+  k3d:
+    wait: true
+  kubeconfig:
+    updateDefaultKubeconfig: false
+    switchCurrentContext: false
+ports:
+  - port: 127.0.2.11:80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 127.0.2.11:443:443
+    nodeFilters:
+      - loadbalancer
+registries:
+  create:
+    image: ligfx/k3d-registry-dockerd:v0.6
+    proxy:
+      remoteURL: "*"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+servers: 1
+subnet: auto

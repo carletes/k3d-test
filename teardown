@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+cluster_name="kubernetes-webdev"
+
+here=$(cd "$(dirname "$0")" && pwd)
+kubeconfig_yaml=${here}/kubeconfig.yaml
+
+k3d cluster delete $cluster_name --verbose
+rm -f "$kubeconfig_yaml"
