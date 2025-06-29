@@ -16,6 +16,7 @@
           buildInputs = with pkgs; [
             k3d
             kubectl
+            yq-go
           ];
 
           shellHook = ''

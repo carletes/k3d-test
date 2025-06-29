@@ -2,14 +2,14 @@
 
 set -eux -o pipefail
 
-cluster_name="kubernetes-webdev"
-
 here=$(cd "$(dirname "$0")" && pwd)
+k3d_yaml=${here}/k3d.yaml
+cluster_name=$(yq -M .metadata.name "$k3d_yaml")
 kubeconfig_yaml=${here}/kubeconfig.yaml
 
 "${here}/teardown"
 
-k3d cluster create $cluster_name \
+k3d cluster create "$cluster_name" \
   --verbose \
-  --config "${here}/k3d.yaml"
-k3d kubeconfig get $cluster_name > "$kubeconfig_yaml"
+  --config "$k3d_yaml"
+k3d kubeconfig get "$cluster_name" > "$kubeconfig_yaml"

@@ -2,10 +2,10 @@
 
 set -eu -o pipefail
 
-cluster_name="kubernetes-webdev"
-
 here=$(cd "$(dirname "$0")" && pwd)
+k3d_yaml=${here}/k3d.yaml
+cluster_name=$(yq -M .metadata.name "$k3d_yaml")
 kubeconfig_yaml=${here}/kubeconfig.yaml
 
-k3d cluster delete $cluster_name --verbose
+k3d cluster delete "$cluster_name" --verbose
 rm -f "$kubeconfig_yaml"
