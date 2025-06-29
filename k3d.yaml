@@ -20,7 +20,7 @@ ports:
       - loadbalancer
 registries:
   create:
-    image: ligfx/k3d-registry-dockerd:v0.7
+    image: ligfx/k3d-registry-dockerd:v0.8
     proxy:
       remoteURL: "*"
     volumes:
